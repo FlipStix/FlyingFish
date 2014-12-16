@@ -9,11 +9,10 @@ import android.view.MotionEvent;
 import com.example.FlyingFish.helper.Delegate;
 
 /**
- * Created by Esperanza on 11/2/2014.
+ * Created by Esperanza on 11/14/2014.
  */
-public class TempGameScreen extends Screen {
-
-    public TempGameScreen(Context context, Delegate delegate){
+public class GameOverScreen extends Screen {
+    public GameOverScreen(Context context, Delegate delegate){
         super(context, delegate);
         initialize();
     }
@@ -53,14 +52,14 @@ public class TempGameScreen extends Screen {
 
     @Override
     public void render(Canvas canvas){
-        canvas.drawColor(Color.GREEN);
+        canvas.drawColor(Color.WHITE);
 
         Paint paint = new Paint();
         paint.setColor(Color.DKGRAY);
         paint.setStyle(Paint.Style.FILL);
         paint.setTextSize(100f);
 
-        canvas.drawText("Game Screen", metrics.widthPixels /5 , metrics.heightPixels / 5, paint);
+        canvas.drawText("YOU SUCK.", metrics.widthPixels /5 , metrics.heightPixels / 5, paint);
 
         Paint rectPaint = new Paint();
         rectPaint.setColor(Color.BLUE);

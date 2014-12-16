@@ -12,7 +12,8 @@ public abstract class Screen {
 
     public static final int MAIN_MENU = 0;
     public static final int GAME_SCREEN = 1;
-    public static final int SETTINGS_MENU = 2;
+    public static final int GAME_OVER_SCREEN = 2;
+    //public static final int SETTINGS_MENU = 2;
 
     protected Delegate delegate;
     protected Context context;

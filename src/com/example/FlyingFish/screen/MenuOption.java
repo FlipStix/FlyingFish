@@ -1,15 +1,21 @@
 package com.example.FlyingFish.screen;
 
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.Rect;
+import android.graphics.*;
 import android.view.Menu;
 
 /**
  * Created by Esperanza on 10/12/2014.
  */
 public class MenuOption {
+    private String tittle;
+    private Rect rect;
+    private boolean isPressed;
+    private Point position;
+    private float fontSize;
+    private Rect textBounds;
+    private int rectWidth;
+    private int rectHeight;
+
     public void setTittle(String tittle) {
         this.tittle = tittle;
     }
@@ -61,12 +67,17 @@ public class MenuOption {
         this.textBounds = textBounds;
     }
 
-    private String tittle;
-    private Rect rect;
-    private boolean isPressed;
-    private Point position;
-    private float fontSize;
-    private Rect textBounds;
+    public void setRectWidth(int rectWidth) {
+        this.rectWidth = rectWidth;
+        calculateRect();
+    }
+
+    public void setRectHeight(int rectHeight) {
+        this.rectHeight = rectHeight;
+        calculateRect();
+    }
+
+
 
 
     public MenuOption(){
@@ -76,6 +87,8 @@ public class MenuOption {
         this.fontSize = 12f;
         this.rect = new Rect();
         this.textBounds = new Rect();
+        this.rectWidth = -1;
+        this.rectHeight = -1;
         calculateRect();
     }
 
@@ -84,16 +97,30 @@ public class MenuOption {
         paint.setTextSize(this.fontSize);
 
         paint.getTextBounds(tittle, 0, tittle.length(), textBounds);
+        int vPadding, hPadding;
+        if(rectHeight == -1)
+            vPadding = (int) this.fontSize /2;
+        else
+            vPadding = (rectHeight - textBounds.height()) / 2;
+        if(rectWidth == -1)
+            hPadding = (int) this.fontSize /2;
+        else
+            hPadding = (rectWidth - textBounds.width()) / 2;
 
-        int left = position.x  - (textBounds.width()/2) - 5;
-        int right = position.x + (textBounds.width()/2) + 5;
-        int top = position.y  - (textBounds.height()/2) - 5;
-        int bottom =  position.y  + (textBounds.height()/2) + 5;
+
+        int left = position.x  - (textBounds.width()/2) - hPadding;
+        int right = position.x + (textBounds.width()/2) + hPadding;
+        int top = position.y  - (textBounds.height()/2) - vPadding;
+        int bottom =  position.y  + (textBounds.height()/2) + vPadding;
 
         rect = new Rect(left, top, right, bottom);
     }
 
     public void draw(Canvas canvas, Paint fontPaint, Paint rectPaint){
+        canvas.drawRect(rect, rectPaint);
+        rectPaint.setStyle(Paint.Style.STROKE);
+        rectPaint.setStrokeWidth(5f);
+        rectPaint.setColor(Color.LTGRAY);
         canvas.drawRect(rect, rectPaint);
         canvas.drawText(tittle, position.x - textBounds.exactCenterX(),
                 position.y - textBounds.exactCenterY(), fontPaint);

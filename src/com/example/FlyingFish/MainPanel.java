@@ -6,10 +6,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import com.example.FlyingFish.core.MainThread;
 import com.example.FlyingFish.helper.Delegate;
-import com.example.FlyingFish.screen.GameScreen;
-import com.example.FlyingFish.screen.MainMenuScreen;
-import com.example.FlyingFish.screen.Screen;
-import com.example.FlyingFish.screen.TempGameScreen;
+import com.example.FlyingFish.screen.*;
 
 /**
  * Created by Esperanza on 10/7/2014.
@@ -38,7 +35,8 @@ public class MainPanel extends SurfaceView implements SurfaceHolder.Callback{
         };
         thread = new MainThread(getHolder(), this);
         screens = new Screen[]{new MainMenuScreen(context, delegate),
-                               new TempGameScreen(context, delegate)};
+                               new GameScreen(context, delegate),
+                               new GameOverScreen(context, delegate)};
         currentScreen = screens[0];
         setFocusable(true);
     }
