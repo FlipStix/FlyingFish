@@ -31,6 +31,9 @@ public class GameScreen extends Screen {
     private int killLimit;
     private int savedCount;
     private boolean selected;
+    private double startTime;
+    private double spawnTime;
+    private int spawnNum;
 
     @Override
     public void initialize(){
@@ -53,6 +56,11 @@ public class GameScreen extends Screen {
         freeFishes = new ArrayList<Fish>();
         tankFresh = new Tank(metrics, Entity.FRESH_WATER);
         tankSalt = new Tank(metrics, Entity.SALT_WATER);
+
+        startTime = System.nanoTime();
+        spawnTime = 3.0;
+
+        spawnNum = 1;
 
     }
 
@@ -164,10 +172,11 @@ public class GameScreen extends Screen {
 
         savedCount = tankFresh.getFishCount() + tankSalt.getFishCount();
 
-        if(freeFishes.isEmpty()) {
-            freeFishes.add(new Fish(context, swimArea));
-            freeFishes.add(new Fish(context, swimArea));
-            freeFishes.add(new Fish(context, swimArea));
+        if(System.nanoTime() - startTime > 1000000000.0 * spawnTime){
+            for(int i = 0; i < spawnNum; i++) {
+                freeFishes.add(new Fish(context, swimArea));
+            }
+            startTime = System.nanoTime();
         }
 
     }
